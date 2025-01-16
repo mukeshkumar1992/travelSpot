@@ -15,7 +15,7 @@
         $gender = $_POST['gender'];
         $message = $_POST['message'];
         
-        $sql = "UPDATE travelinsert_tbl SET name='$name',address='$address',mail='$mail',mobile='$mobile',destination='$destination',withtravel='$withtravel',personNo='$personNo',starttrip=`$starttrip`,endtrip=`$starttrip`,gender=`$gender`,message=`$message` WHERE id = $id";
+        $sql = "UPDATE travelinsert_tbl SET name='$name',address='$address',mail='$mail',mobile='$mobile',destination='$destination',withtravel='$withtravel',personNo='$personNo',starttrip='$starttrip',endtrip='$endtrip',gender='$gender',message='$message' WHERE id = $id";
         
         $result = mysqli_query($link,$sql);
         
@@ -93,8 +93,8 @@
     }
 
     label {
-        color: #636e72;
-        font-weight: 700;
+        color: powderblue;
+        font-weight: 600;
         margin-left: 1%;
         margin-top: 2%;
     }
@@ -161,12 +161,14 @@
         background: rgba(0, 0, 0, 0.5);
         padding: 10px !important;
     }
+
+ 
 </style>
 
 <body>
 
 <?php
-$sql = "SELECT * FROM `travelinsert_tbl` WHERE id = $id";
+$sql = "SELECT * FROM travelinsert_tbl";
 $result = mysqli_query($link, $sql);
 $row = mysqli_fetch_assoc($result);
 
@@ -213,6 +215,7 @@ $row = mysqli_fetch_assoc($result);
                         <label>Tourist Destination</label>
                         <select name="destination" id="tourist" class="custom-select form-control" selected="<?php echo $row['destination']?>">
                             <option>----Choose Destination-----</option>
+                            <option value="<?php echo $row['destination']; ?>" selected><?php echo $row['destination']; ?></option>
                             <option class="selected form-control" value="agra">Agra</option>
                             <option class="selected form-control" value="mathura">Mathura</option>
                             <option class="selected form-control" value="nepal">Nepal</option>
@@ -223,13 +226,14 @@ $row = mysqli_fetch_assoc($result);
                             <option class="selected form-control" value="goa">Goa</option>
                             <option class="selected form-control" value="goa">dubai</option>
                             <option class="selected form-control" value="gujrat">Gujrat</option>
-                            <select>
+                        <select>
 
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <label>Who Would You Travel With...?</label>
                         <select name="withtravel" id="tourist" class="custom-select form-control" value="<?php echo $row['withtravel']?>">
                             <option>----Select Type-----</option>
+                            <option value="<?php echo $row['withtravel']; ?>" selected><?php echo $row['withtravel']; ?></option>
                             <option class="selected form-control" value="single">Single</option>
                             <br>
                             <option class="selected form-control" value="couple">Couple</option>
@@ -273,16 +277,21 @@ $row = mysqli_fetch_assoc($result);
 
                 <div class="mt-3">
                     <label for="gender">Gender</label>
-                    <input type="radio" class="ms-5" name="gender" value="male" > <span class="text-light">Male</span>
-                    <input type="radio" class="ms-5" name="gender" value="female" > <span class="text-light">
-                        Female</span>
-                    <input type="radio" class="ms-5" name="gender" value="other" > <span class="text-light"> Other</span>
+                    <input type="radio" class="ms-5" value="<?php echo $row['gender'];?>" name="gender" value="male" <?php if 
+                            ($row['gender']=="male") { echo 'checked'; } else {} ?>> <span style="color:powderblue">Male</span> &nbsp;
+                    
+                    <input type="radio" class="ms-5" value="<?php echo $row['gender'];?>" name="gender" value="female" <?php if 
+                            ($row['gender']=="female") { echo 'checked'; } else {} ?>> <span style="color:powderblue">female</span> &nbsp;
+                    
+                    <input type="radio" class="ms-5" value="<?php echo $row['gender'];?>" name="gender" value="other" <?php if 
+                            ($row['gender']=="other") { echo 'checked'; } else {} ?>> <span style="color:powderblue">Other</span> &nbsp;
+                
                 </div>
-                <br>
-                <hr class="text-secondary fw-bold">
-
+                
                 <label>Additional Information</label>
-                <textarea rows="4" cols="50" name="message" value="<?php echo $row['message']?>" placeholder="Write a message"></textarea>
+                <input type="text" name="message" value="<?php echo $row['message']?>" <?php if ($row['gender']=="other") { echo 'checked'; } else {} ?>>
+                
+                
                 <input type="hidden" value="<?php echo date('Y-m-d'); ?>" name="date">
 
             </div>
