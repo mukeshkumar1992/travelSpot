@@ -256,7 +256,7 @@ textarea{
                     <hr class="text-secondary fw-bold">
                    
                     <label>Additional Information</label>
-                    <textarea rows="4" cols="50" name="message" placeholder="Write a message"></textarea>
+                    <input type="text" name="message" placeholder="Write a message">
                     <input type="hidden" value="<?php echo date('Y-m-d');?>" name = "date">
 
                 </div>
